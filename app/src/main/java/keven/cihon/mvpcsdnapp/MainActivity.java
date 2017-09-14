@@ -2,24 +2,43 @@ package keven.cihon.mvpcsdnapp;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import keven.cihon.mvpcsdnapp.book.BooksFragment;
+import keven.cihon.mvpcsdnapp.movie.MoviesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    @BindView(R.id.douban_sliding_tabs)
+    TabLayout mDoubanSlidingTabs;
+    @BindView(R.id.viewPager)
+    ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -40,6 +59,24 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        //初始化viewpager
+        setupViewPager(mViewPager);
+    }
+
+    public void setupViewPager(ViewPager viewPager){
+        DouBanPagerAdapter douBanPagerAdapter = new DouBanPagerAdapter(getSupportFragmentManager());
+        douBanPagerAdapter.addFragment(new BooksFragment(),getApplicationContext().getResources().getString(R.string.hello_books_fragment));
+        douBanPagerAdapter.addFragment(new MoviesFragment(),getApplicationContext().getResources().getString(R.string.hello_movies_fragment));
+        viewPager.setAdapter(douBanPagerAdapter);
+
+
+        if(mDoubanSlidingTabs!=null){
+            mDoubanSlidingTabs.addTab(mDoubanSlidingTabs.newTab());
+            mDoubanSlidingTabs.addTab(mDoubanSlidingTabs.newTab());
+            mDoubanSlidingTabs.setupWithViewPager(viewPager);
+        }
     }
 
     @Override
@@ -97,5 +134,35 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    static class DouBanPagerAdapter extends FragmentPagerAdapter {
+        private List<Fragment> mFragmentList = new ArrayList<>();
+        private List<String> mTitles = new ArrayList<>();
+
+        public DouBanPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        public void addFragment(Fragment fm, String title) {
+
+            mFragmentList.add(fm);
+            mTitles.add(title);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mTitles.get(position);
+        }
     }
 }
