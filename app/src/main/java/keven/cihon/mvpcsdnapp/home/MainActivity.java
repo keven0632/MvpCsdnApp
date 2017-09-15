@@ -1,4 +1,4 @@
-package keven.cihon.mvpcsdnapp;
+package keven.cihon.mvpcsdnapp.home;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,8 +23,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import keven.cihon.mvpcsdnapp.R;
 import keven.cihon.mvpcsdnapp.book.BooksFragment;
-import keven.cihon.mvpcsdnapp.movie.MoviesFragment;
+import keven.cihon.mvpcsdnapp.movie.fragment.MoviesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -67,8 +68,8 @@ public class MainActivity extends AppCompatActivity
 
     public void setupViewPager(ViewPager viewPager){
         DouBanPagerAdapter douBanPagerAdapter = new DouBanPagerAdapter(getSupportFragmentManager());
-        douBanPagerAdapter.addFragment(new BooksFragment(),getApplicationContext().getResources().getString(R.string.hello_books_fragment));
-        douBanPagerAdapter.addFragment(new MoviesFragment(),getApplicationContext().getResources().getString(R.string.hello_movies_fragment));
+        douBanPagerAdapter.addFragment(new BooksFragment(),getApplicationContext().getResources().getString(R.string.books));
+        douBanPagerAdapter.addFragment(new MoviesFragment(),getApplicationContext().getResources().getString(R.string.movies));
         viewPager.setAdapter(douBanPagerAdapter);
 
 
