@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CSDN-APP</string>
+    <string name="app_name">豆瓣社区</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -13,4 +13,5 @@
     <string name="books">书籍</string>
     <string name="movies">影视</string>
     <string name="name">KeVeN</string>
+    <string name="hotmovie">影院热映</string>
 </resources>

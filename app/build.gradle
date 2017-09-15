@@ -48,4 +48,7 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
     //logger
     compile 'com.orhanobut:logger:2.1.1'
+    //picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.rahatarmanahmed:circularprogressview:2.4.0'
 }

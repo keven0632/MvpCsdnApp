@@ -3,18 +3,58 @@ package keven.cihon.mvpcsdnapp.Base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import keven.cihon.mvpcsdnapp.R;
+import keven.cihon.mvpcsdnapp.myview.CustomProgressDialog;
 
 /**
  * Created by zhengjian on 2017/9/14.
  */
 
-public abstract class BaseFragment  <P extends BasePresenter<V>, V extends BaseMvpView> extends Fragment {
+public abstract class BaseFragment<P extends BasePresenter<V>, V extends BaseMvpView> extends Fragment {
+
+
+    private CustomProgressDialog customProgressDialog;
+
     public P getPresenter() {
         return presenter;
     }
 
     private P presenter;
     private V view;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_base, container, false);
+
+        return view;
+    }
+
+    public void showLoadingDialog() {
+        if (customProgressDialog == null) {
+            customProgressDialog = new CustomProgressDialog(getActivity());
+            customProgressDialog.setCancelable(false);
+        }
+        if (!getActivity().isFinishing()) {
+            try {
+                customProgressDialog.show("加载中...", true, null).show();
+            } catch (Exception e) {
+            }
+        }
+
+    }
+
+    public void dismissLoadingDialog() {
+        if (customProgressDialog != null) {
+            customProgressDialog.disMiss();
+        }
+    }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -49,5 +89,6 @@ public abstract class BaseFragment  <P extends BasePresenter<V>, V extends BaseM
         if (this.presenter != null) {
             this.presenter.detachView();
         }
+
     }
 }

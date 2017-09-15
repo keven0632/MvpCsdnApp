@@ -1,4 +1,4 @@
-package com.cihon.driver.view;
+package keven.cihon.mvpcsdnapp.myview;
 
 
 import android.app.Activity;
@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.cihon.driver.R;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import keven.cihon.mvpcsdnapp.R;
 
 public class CustomProgressDialog extends Dialog {
     /**
@@ -55,6 +55,7 @@ public class CustomProgressDialog extends Dialog {
         dialog = new CustomProgressDialog(context, R.style.QuanDialog);
         dialog.setTitle("");
         dialog.setContentView(R.layout.my_progress_dialog);
+
         if (message == null || message.length() == 0) {
             dialog.findViewById(R.id.message).setVisibility(View.GONE);
         } else {

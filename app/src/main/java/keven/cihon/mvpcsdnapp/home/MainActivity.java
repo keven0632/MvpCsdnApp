@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity
 
     public void setupViewPager(ViewPager viewPager){
         DouBanPagerAdapter douBanPagerAdapter = new DouBanPagerAdapter(getSupportFragmentManager());
-        douBanPagerAdapter.addFragment(new BooksFragment(),getApplicationContext().getResources().getString(R.string.books));
         douBanPagerAdapter.addFragment(new MoviesFragment(),getApplicationContext().getResources().getString(R.string.movies));
+        douBanPagerAdapter.addFragment(new BooksFragment(),getApplicationContext().getResources().getString(R.string.books));
         viewPager.setAdapter(douBanPagerAdapter);
 
 

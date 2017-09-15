@@ -4,6 +4,7 @@ package keven.cihon.mvpcsdnapp.movie.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import keven.cihon.mvpcsdnapp.Base.BaseFragment;
 import keven.cihon.mvpcsdnapp.R;
+import keven.cihon.mvpcsdnapp.adapter.HotMoviesAdapter;
 import keven.cihon.mvpcsdnapp.movie.bean.HotMoviesInfo;
 import keven.cihon.mvpcsdnapp.movie.mvp.MovieView;
 import keven.cihon.mvpcsdnapp.movie.mvp.MoviewPresenter;
@@ -28,6 +30,7 @@ public class MoviesFragment extends BaseFragment<MoviewPresenter, MovieView> imp
     @BindView(R.id.recycleview)
     RecyclerView mRecycleview;
     Unbinder unbinder;
+    private GridLayoutManager mLayoutManager;
 
     public MoviesFragment() {
         // Required empty public constructor
@@ -41,8 +44,16 @@ public class MoviesFragment extends BaseFragment<MoviewPresenter, MovieView> imp
         View view = inflater.inflate(R.layout.fragment_movies, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
+
+
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        showLoadingDialog();
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -64,10 +75,19 @@ public class MoviesFragment extends BaseFragment<MoviewPresenter, MovieView> imp
 
     @Override
     public void onSuccess(Object str) {
+
+        dismissLoadingDialog();
+
         HotMoviesInfo info = (HotMoviesInfo) str;
         for (int i = 0; i < info.getSubjects().size(); i++) {
             LogUtils.e(info.getSubjects().get(i).getTitle());
         }
+        //set recycle view
+        mRecycleview.setHasFixedSize(true);
+        mLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
+        mRecycleview.setLayoutManager(mLayoutManager);
+
+        mRecycleview.setAdapter(new HotMoviesAdapter(getActivity(), info.getSubjects(), R.layout.recyclerview_movie_item));
     }
 
     @Override
