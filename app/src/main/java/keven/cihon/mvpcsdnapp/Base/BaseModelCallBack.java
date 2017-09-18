@@ -5,7 +5,7 @@ package keven.cihon.mvpcsdnapp.Base;
  */
 
 public interface BaseModelCallBack {
-    void onSuccess(Object result);
+    void onSuccess(Object result,int which);
 
-    void onError(String result);
+    void onError(String result,int which);
 }

@@ -1,6 +1,7 @@
 package keven.cihon.mvpcsdnapp.movie.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ public class MoviesFragment extends BaseFragment<MoviewPresenter, MovieView> imp
     RecyclerView mRecycleview;
     Unbinder unbinder;
     private GridLayoutManager mLayoutManager;
+    private HotMoviesAdapter mHotMoviesAdapter;
 
     public MoviesFragment() {
         // Required empty public constructor
@@ -48,11 +50,16 @@ public class MoviesFragment extends BaseFragment<MoviewPresenter, MovieView> imp
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        showLoadingDialog();
+    }
 
     @Override
     public void onStart() {
         super.onStart();
-        showLoadingDialog();
+
     }
 
     @Override
@@ -60,6 +67,13 @@ public class MoviesFragment extends BaseFragment<MoviewPresenter, MovieView> imp
         super.onActivityCreated(savedInstanceState);
 
         getPresenter().getHotMovie();
+
+        //set recycle view
+        mRecycleview.setHasFixedSize(true);
+        mLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
+        mRecycleview.setLayoutManager(mLayoutManager);
+        mHotMoviesAdapter = new HotMoviesAdapter(getActivity(),  R.layout.recyclerview_movie_item);
+        mRecycleview.setAdapter(mHotMoviesAdapter);
     }
 
     @Override
@@ -74,25 +88,21 @@ public class MoviesFragment extends BaseFragment<MoviewPresenter, MovieView> imp
 
 
     @Override
-    public void onSuccess(Object str) {
+    public void onSuccess(Object str,int which) {
 
+//        LogUtils.e("从哪里来的小伙子"+which);
+//        for (int i = 0; i < info.getSubjects().size(); i++) {
+//            LogUtils.e(info.getSubjects().get(i).getTitle());
+//        }
+//        添加数据
         dismissLoadingDialog();
-
         HotMoviesInfo info = (HotMoviesInfo) str;
-        for (int i = 0; i < info.getSubjects().size(); i++) {
-            LogUtils.e(info.getSubjects().get(i).getTitle());
-        }
-        //set recycle view
-        mRecycleview.setHasFixedSize(true);
-        mLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
-        mRecycleview.setLayoutManager(mLayoutManager);
-
-        mRecycleview.setAdapter(new HotMoviesAdapter(getActivity(), info.getSubjects(), R.layout.recyclerview_movie_item));
+        mHotMoviesAdapter.setData(info.getSubjects());
     }
 
     @Override
-    public void onError(String error) {
-
+    public void onError(String error,int which) {
+        LogUtils.e(error);
     }
 
     @Override

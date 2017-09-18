@@ -7,6 +7,6 @@ import keven.cihon.mvpcsdnapp.Base.BaseMvpView;
  */
 
 public interface MovieView extends BaseMvpView {
-    void onSuccess(Object str);
-    void onError(String error);
+    void onSuccess(Object str,int which);
+    void onError(String error,int which);
 }
