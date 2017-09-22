@@ -102,6 +102,7 @@ public class MoviesFragment extends BaseFragment<MoviewPresenter, MovieView> imp
 
     @Override
     public void onError(String error,int which) {
+        dismissLoadingDialog();
         LogUtils.e(error);
     }
 

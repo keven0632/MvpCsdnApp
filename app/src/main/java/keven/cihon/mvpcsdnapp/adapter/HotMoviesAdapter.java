@@ -2,8 +2,11 @@ package keven.cihon.mvpcsdnapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -117,7 +120,8 @@ public class HotMoviesAdapter extends RecyclerView.Adapter<HotMoviesAdapter.HotM
             intent.putExtra("movie",mMovie);
             if(context instanceof AppCompatActivity){
                 AppCompatActivity activity= (AppCompatActivity) context;
-                activity.startActivity(intent);
+                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, mIv, "cover").toBundle();
+                ActivityCompat.startActivity(activity, intent, bundle);
             }
 
         }

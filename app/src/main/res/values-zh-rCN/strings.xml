@@ -14,4 +14,6 @@
     <string name="movies">影视</string>
     <string name="name">KeVeN</string>
     <string name="hotmovie">影院热映</string>
+    <string name="movie_info">影片信息</string>
+    <string name="movie_introduce">简介</string>
 </resources>
