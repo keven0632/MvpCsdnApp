@@ -22,6 +22,7 @@ public class DoubanManager {
         return sDoubanService;
     }
 
+
     private static Retrofit createRetrofit() {
         OkHttpClient httpClient;
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();

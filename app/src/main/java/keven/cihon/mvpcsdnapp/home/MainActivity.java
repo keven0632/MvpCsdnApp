@@ -24,15 +24,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import keven.cihon.mvpcsdnapp.R;
-import keven.cihon.mvpcsdnapp.book.BooksFragment;
+import keven.cihon.mvpcsdnapp.book.fragment.BooksFragment;
 import keven.cihon.mvpcsdnapp.movie.fragment.MoviesFragment;
+
+import static keven.cihon.mvpcsdnapp.R.id.viewPager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.douban_sliding_tabs)
     TabLayout mDoubanSlidingTabs;
-    @BindView(R.id.viewPager)
+    @BindView(viewPager)
     ViewPager mViewPager;
 
     @Override
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Hello Keven", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
+        mViewPager.setOffscreenPageLimit(2);
         //初始化viewpager
         setupViewPager(mViewPager);
     }
@@ -127,8 +129,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 

@@ -6,4 +6,5 @@ package keven.cihon.mvpcsdnapp.utils;
 
 public class Constant {
     public static int HOT_MOVIE_REQUEST=0x0001;
+    public static int HOT_BOOK_REQUEST=0x0002;
 }
