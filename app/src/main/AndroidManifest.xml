@@ -31,8 +31,20 @@
             android:name=".Base.BaseActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".book.BookDetailActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".book.BookDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".activity.MoviePlayerActivity"
+            android:configChanges="screenSize|orientation"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".activity.LEDActivity">
+        </activity>
+        <activity android:name=".activity.Movie2PlayerActivity"
+                  android:configChanges="orientation|screenSize|keyboardHidden"
+                  android:screenOrientation="portrait" >
         </activity>
     </application>
 

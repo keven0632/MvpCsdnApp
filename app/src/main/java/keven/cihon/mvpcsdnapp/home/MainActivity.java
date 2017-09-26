@@ -1,5 +1,6 @@
 package keven.cihon.mvpcsdnapp.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -24,6 +25,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import keven.cihon.mvpcsdnapp.R;
+import keven.cihon.mvpcsdnapp.activity.LEDActivity;
+import keven.cihon.mvpcsdnapp.activity.Movie2PlayerActivity;
 import keven.cihon.mvpcsdnapp.book.fragment.BooksFragment;
 import keven.cihon.mvpcsdnapp.movie.fragment.MoviesFragment;
 
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     TabLayout mDoubanSlidingTabs;
     @BindView(viewPager)
     ViewPager mViewPager;
+    private NavigationView mNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,22 +64,22 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
 
         mViewPager.setOffscreenPageLimit(2);
         //初始化viewpager
         setupViewPager(mViewPager);
     }
 
-    public void setupViewPager(ViewPager viewPager){
+    public void setupViewPager(ViewPager viewPager) {
         DouBanPagerAdapter douBanPagerAdapter = new DouBanPagerAdapter(getSupportFragmentManager());
-        douBanPagerAdapter.addFragment(new MoviesFragment(),getApplicationContext().getResources().getString(R.string.movies));
-        douBanPagerAdapter.addFragment(new BooksFragment(),getApplicationContext().getResources().getString(R.string.books));
+        douBanPagerAdapter.addFragment(new MoviesFragment(), getApplicationContext().getResources().getString(R.string.movies));
+        douBanPagerAdapter.addFragment(new BooksFragment(), getApplicationContext().getResources().getString(R.string.books));
         viewPager.setAdapter(douBanPagerAdapter);
 
 
-        if(mDoubanSlidingTabs!=null){
+        if (mDoubanSlidingTabs != null) {
             mDoubanSlidingTabs.addTab(mDoubanSlidingTabs.newTab());
             mDoubanSlidingTabs.addTab(mDoubanSlidingTabs.newTab());
             mDoubanSlidingTabs.setupWithViewPager(viewPager);
@@ -122,19 +126,26 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+
+
         } else if (id == R.id.nav_gallery) {
-
+            startActivity(new Intent(MainActivity.this, Movie2PlayerActivity.class));
         } else if (id == R.id.nav_slideshow) {
-
+            startActivity(new Intent(MainActivity.this, LEDActivity.class));
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mNavigationView.setCheckedItem(R.id.nav_camera);
     }
 
     static class DouBanPagerAdapter extends FragmentPagerAdapter {
