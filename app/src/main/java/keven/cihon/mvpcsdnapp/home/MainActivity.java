@@ -18,6 +18,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +29,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import keven.cihon.mvpcsdnapp.R;
+import keven.cihon.mvpcsdnapp.activity.LoginActivity;
 import keven.cihon.mvpcsdnapp.activity.Movie2PlayerActivity;
 import keven.cihon.mvpcsdnapp.book.fragment.BooksFragment;
 import keven.cihon.mvpcsdnapp.movie.fragment.MoviesFragment;
+import keven.cihon.mvpcsdnapp.utils.PrefUtils;
 
 import static keven.cihon.mvpcsdnapp.R.id.viewPager;
 
@@ -39,14 +45,15 @@ public class MainActivity extends AppCompatActivity
     @BindView(viewPager)
     ViewPager mViewPager;
     private NavigationView mNavigationView;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +66,7 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -134,7 +141,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -145,6 +152,15 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         mNavigationView.setCheckedItem(R.id.nav_camera);
+        View headerView = mNavigationView.getHeaderView(0);
+        ImageView iv = (ImageView) headerView.findViewById(R.id.iv_header);
+        TextView tv = (TextView) headerView.findViewById(R.id.tv_name);
+        String name=PrefUtils.getString(this,"nickname","csdn");
+        String img=PrefUtils.getString(this,"icon","https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=1564313258,1856489102&fm=85&s=CD0034727CD4C49A4C54F4DA0200E0B4");
+        Picasso.with(this).load(img)
+                .placeholder(getResources().getDrawable(R.mipmap.ic_launcher))
+                .into(iv);
+        tv.setText(name);
     }
 
     static class DouBanPagerAdapter extends FragmentPagerAdapter {
