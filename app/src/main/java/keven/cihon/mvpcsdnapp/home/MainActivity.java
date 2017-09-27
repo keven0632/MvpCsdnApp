@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import keven.cihon.mvpcsdnapp.utils.PrefUtils;
+import keven.cihon.mvpcsdnapp.activity.LoginActivity;
 
 import com.squareup.picasso.Picasso;
 
@@ -29,11 +31,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import keven.cihon.mvpcsdnapp.R;
-import keven.cihon.mvpcsdnapp.activity.LoginActivity;
+
 import keven.cihon.mvpcsdnapp.activity.Movie2PlayerActivity;
 import keven.cihon.mvpcsdnapp.book.fragment.BooksFragment;
 import keven.cihon.mvpcsdnapp.movie.fragment.MoviesFragment;
-import keven.cihon.mvpcsdnapp.utils.PrefUtils;
+
 
 import static keven.cihon.mvpcsdnapp.R.id.viewPager;
 
@@ -80,8 +82,8 @@ public class MainActivity extends AppCompatActivity
 
     public void setupViewPager(ViewPager viewPager) {
         DouBanPagerAdapter douBanPagerAdapter = new DouBanPagerAdapter(getSupportFragmentManager());
-        douBanPagerAdapter.addFragment(new MoviesFragment(), getApplicationContext().getResources().getString(R.string.movies));
-        douBanPagerAdapter.addFragment(new BooksFragment(), getApplicationContext().getResources().getString(R.string.books));
+        douBanPagerAdapter.addFragment(new MoviesFragment(), "影视");
+        douBanPagerAdapter.addFragment(new BooksFragment(), "书籍");
         viewPager.setAdapter(douBanPagerAdapter);
 
 

@@ -100,8 +100,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         MovieDetailFragment f2=new MovieDetailFragment();
         f2.setMessage(original_title+"\n上映于"+year);
         MovieDetailPagerAdapter douBanPagerAdapter = new MovieDetailPagerAdapter(getSupportFragmentManager());
-        douBanPagerAdapter.addFragment(f1,getApplicationContext().getResources().getString(R.string.movie_info));
-        douBanPagerAdapter.addFragment(f2,getApplicationContext().getResources().getString(R.string.movie_introduce));
+        douBanPagerAdapter.addFragment(f1,"影片信息");
+        douBanPagerAdapter.addFragment(f2,"简介");
         viewPager.setAdapter(douBanPagerAdapter);
 
 
