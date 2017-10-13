@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.bt_login_remove)
     Button mBtLoginRemove;
     private Platform mQq;
-
+public static String img_head="https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=1564313258,1856489102&fm=85&s=CD0034727CD4C49A4C54F4DA0200E0B4";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,5 +130,7 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick(R.id.bt_login_remove)
     public void onViewClicked() {
         mQq.removeAccount(true);
+        PrefUtils.setString(LoginActivity.this, "icon", img_head);
+        PrefUtils.setString(LoginActivity.this, "nickname", "未登录");
     }
 }
